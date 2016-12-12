@@ -28,12 +28,9 @@ class PortebelloPizza extends Pizza{
 class Orden{
     private int amountOfSodas;
     private int amountOfSalads;
-    private int costOfSoda;
     private int costOfSalad;
     
     public Orden(){
-	costOfSoda=15;
-	costOfSalad=30;
     }
     public void addNewPizza(){
     }
@@ -43,7 +40,18 @@ class Orden{
     public void setAmountOfSalads(int amount){
 	amountOfSalads=amount;
     }
+	public int costofsodas(int costOfSoda)
+	{int totals=0;
+		totals=amountOfSodas*costOfSoda;
+		return totals;
     
+	}
+	public int costofsalads(int costOfSalad)
+	{int totals2=0;
+		totals2=amountOfSalads*costOfSalad;
+		return totals2;
+
+	}
 }
 class Fw{//Flyweight
     
@@ -54,7 +62,7 @@ class Iterator{
 class Builder{
     private Orden nuevaOrden;
     
-    private Builder(){
+    public Builder(){
 	nuevaOrden=new Orden();
     }
        
@@ -67,7 +75,7 @@ class Builder{
     }
     
     public void addSalads(int amount){
-	nuevaOrden.setAmountOfSodas(amount);
+	nuevaOrden.setAmountOfSalads(amount);
     }
     
     public Orden getOrden(){
@@ -79,10 +87,13 @@ class Builder{
 public class Pizzeria
 {
     public static Vector<Orden> ordenes;
-	
+	public static Builder bd;
+	public static Orden ord;
     public static void main(String[] args) throws IOException {
-	ordenes=new Vector();
+		ordenes=new Vector();
 		Scanner in=new Scanner(System.in);
+		bd=new Builder();
+		ord=new Orden();
 		int option;
 		do
 		{
@@ -92,7 +103,8 @@ public class Pizzeria
 			System.out.print("2) Ordenar una soda\n");
 			System.out.print("3) Ordenar una ensalada\n");
 			System.out.print("4) Total del pedido\n");
-			System.out.print("5)Salir\n");
+			System.out.print("5) Reporte del dia\n");
+			System.out.print("6)Salir\n");
 			System.out.print("Seleccione una opción\n");
 			option=in.nextInt();
 		
@@ -106,34 +118,38 @@ public class Pizzeria
 				int getnum;
 				System.out.println("Cuantas sodas quiere?");
 				getnum=in.nextInt();
-				soda(getnum);
+				bd.addSodas(getnum);
 				
 					//soda();
 			break;
 			case 3:
+				int getnumsalad;
+				System.out.println("Cuantas ensaladas quiere?");
+				getnumsalad=in.nextInt();
+				bd.addSalads(getnumsalad);
 					//ensalada();
 			break;
 			case 4:
-					
+
+					int totalsoda;int totalsalad;int totalgeneral=0;
+					ordenes.add(bd.getOrden());
+				totalsoda=ordenes.lastElement().costofsodas(20);
+				System.out.print("Costo de las sodas:  " +ordenes.lastElement().costofsodas(20)+"\n");
+					totalsalad=ordenes.lastElement().costofsalads(70);
+				System.out.print("Costo de las ensaladas:  " +ordenes.lastElement().costofsalads(70)+"\n");
+				
+				totalgeneral=totalsoda+totalsalad;
+				System.out.print("Total: " +totalgeneral+"\n");
 					//total(costosoda,costoensalada,costopizza);
+			break;
+			
+			case 5://reportes
 			break;
 			}
 
-		  }while(option!=5);
+		  }while(option!=6);
     }
 	
-	public static int total(int costosoda,int costoensalada,int costopizza)
-	{
-		int suma=costosoda+costoensalada+costopizza;
-		return suma;
-	   }
-	public static int soda(int sodas)
-	{
-		int sodaprice=20;
-		int sodatotal=0;
-		sodatotal=sodas*sodaprice;
-		System.out.print("Total soda\n"+sodatotal);
-		return sodatotal;
-		//builder.addSoda();
-	}
+	
+	
 }
