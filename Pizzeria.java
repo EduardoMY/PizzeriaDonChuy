@@ -8,6 +8,12 @@ class Pizza{
     public Pizza(Fw f){
 	sizeAndPrice=f;
     }
+    public int getCost(){
+	return sizeAndPrice.cost;
+    }
+    public int getSize(){
+	return sizeAndPrice.size;
+    }
 }
 class QuesoPizza extends Pizza{
     public QuesoPizza(Fw f){
@@ -69,11 +75,11 @@ class Orden{
 	   }
 }
 class Fw{//Flyweight
-    public Fw(){}
-}
-class Iterator{
+    public short size, cost;
     
+    public Fw(short s, short c){size=s; cost=c;}
 }
+
 class Builder{
     private Orden nuevaOrden;
     
@@ -108,6 +114,7 @@ public class Pizzeria
     public static Vector<Orden> ordenes;
     public static Builder bd;
     public static Orden ord;
+    private static final HashMap<String ,Fw> FwMap = new HashMap();
     public static void main(String[] args) throws IOException {
 		ordenes=new Vector();
 		Scanner in=new Scanner(System.in);
@@ -176,7 +183,11 @@ public class Pizzeria
 	
     public static Pizza FactoryBuilderPizza(String type, short size){
 	Pizza nuevaPizza;
-	Fw example=new Fw();
+	Fw example=(Fw) FwMap.get(size+"");
+	if(example == null){
+	    example = new Fw(size ,(short) (size==10 ? 60 :(size==16? 80 : 120)));
+	    FwMap.put(size+"", example);
+	}
 	if(type.equalsIgnoreCase("queso"))
 	    nuevaPizza=new QuesoPizza(example);
 	else if(type.equalsIgnoreCase("peperoni"))
