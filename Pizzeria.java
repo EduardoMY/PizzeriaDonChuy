@@ -3,25 +3,29 @@ import java.util.*;
 import java.util.Scanner;
 
 class Pizza{
-    
-    public Pizza(){
-	    
+    Fw sizeAndPrice;
+    public Pizza(Fw f){
+	sizeAndPrice=f;
     }
 }
 class QuesoPizza extends Pizza{
-    public QuesoPizza(){
+    public QuesoPizza(Fw f){
+	super(f);
     }
 }
 class PeperoniPizza extends Pizza{
-    public PeperoniPizza(){
+    public PeperoniPizza(Fw f){
+	super(f);
     }
 }
 class CarnivoraPizza extends Pizza{
-    public CarnivoraPizza(){
+    public CarnivoraPizza(Fw f){
+	super(f);
     }
 }
 class PortebelloPizza extends Pizza{
-    public PortebelloPizza(){
+    public PortebelloPizza(Fw f){
+	super(f);
     }
 }
 
@@ -54,7 +58,7 @@ class Orden{
 	}
 }
 class Fw{//Flyweight
-    
+    public Fw(){}
 }
 class Iterator{
     
@@ -87,8 +91,8 @@ class Builder{
 public class Pizzeria
 {
     public static Vector<Orden> ordenes;
-	public static Builder bd;
-	public static Orden ord;
+    public static Builder bd;
+    public static Orden ord;
     public static void main(String[] args) throws IOException {
 		ordenes=new Vector();
 		Scanner in=new Scanner(System.in);
@@ -150,6 +154,22 @@ public class Pizzeria
 		  }while(option!=6);
     }
 	
-	
-	
+    public static Pizza FactoryBuilderPizza(String type, short size){
+	Pizza nuevaPizza;
+	Fw example=new Fw();
+	if(type.equalsIgnoreCase("queso"))
+	    nuevaPizza=new QuesoPizza(example);
+	else if(type.equalsIgnoreCase("peperoni"))
+	    nuevaPizza=new PeperoniPizza(example);
+	else if(type.equalsIgnoreCase("carnivora"))
+	    nuevaPizza=new CarnivoraPizza(example);
+	else if(type.equalsIgnoreCase("portebello"))
+	    nuevaPizza=new PortebelloPizza(example);
+	else
+	    nuevaPizza=null;
+	return nuevaPizza;
+    }
 }
+
+
+
