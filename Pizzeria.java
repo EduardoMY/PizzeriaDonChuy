@@ -78,9 +78,10 @@ class Builder{
 
 public class Pizzeria
 {
-    
+    public static Vector<Orden> ordenes;
+	
     public static void main(String[] args) throws IOException {
-    
+	ordenes=new Vector();
 		Scanner in=new Scanner(System.in);
 		int option;
 		do
