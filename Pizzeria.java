@@ -39,12 +39,18 @@ class PortebelloPizza extends Pizza{
 class Orden{
     private int amountOfSodas;
     private int amountOfSalads;
-	private int amountOfPizza;
+    private int amountOfPizza;
     private int costOfSalad;
+    private Vector<Pizza> pizzas;
+    private Vector amountOfPizzas;
     
     public Orden(){
+	pizzas=new Vector<Pizza>();
+	amountOfPizzas=new Vector();
     }
-    public void addNewPizza(){
+    public void addNewPizzas(Pizza p, short amount){
+	pizzas.add(p);
+	amountOfPizzas.add(amount);
     }
     public void setAmountOfSodas(int amount){
 	amountOfSodas=amount;
@@ -52,9 +58,6 @@ class Orden{
     public void setAmountOfSalads(int amount){
 	amountOfSalads=amount;
     }
-	public void setAmountOfPizza(int amount){
-	amountOfPizza=amount;
-	   }
 	public int costofsodas(int costOfSoda)
 	{int totals=0;
 		totals=amountOfSodas*costOfSoda;
@@ -67,12 +70,13 @@ class Orden{
 		return totals2;
 
 	}
-	public int costofpizza(int costOfPizza)
+	public int costofpizzas()
 	{
-	int totals3=0;
-		totals3=amountOfPizza*costOfPizza;
-		return totals3;
-	   }
+	    int total=0;
+	    for(int c=0; c<pizzas.size(); c++)
+		total+= ((Pizza)pizzas.get(c)).getCost() * (short)amountOfPizzas.get(c);
+	    return total;
+	}
 }
 class Fw{//Flyweight
     public short size, cost;
@@ -87,8 +91,8 @@ class Builder{
 	nuevaOrden=new Orden();
     }
        
-    public void addPizza(int amount, String type){
-	
+    public void addPizza(Pizza p, short amount){
+	nuevaOrden.addNewPizzas(p, amount);
     }
     
     public void addSodas(int amount){
@@ -98,10 +102,6 @@ class Builder{
     public void addSalads(int amount){
 	nuevaOrden.setAmountOfSalads(amount);
     }
-	public void addPizza(int amount)
-	{
-	nuevaOrden.setAmountOfPizza(amount);
-	}
     
     public Orden getOrden(){
 	return nuevaOrden;
@@ -114,10 +114,11 @@ public class Pizzeria
     public static Vector<Orden> ordenes;
     public static Builder bd;
     public static Orden ord;
-    private static final HashMap<String ,Fw> FwMap = new HashMap();
+    private static HashMap<String ,Fw> FwMap = new HashMap();
     public static void main(String[] args) throws IOException {
 		ordenes=new Vector();
 		Scanner in=new Scanner(System.in);
+		Scanner typeReader=new Scanner(System.in);
 		bd=new Builder();
 		ord=new Orden();
 		int option;
@@ -137,7 +138,19 @@ public class Pizzeria
 			switch(option)
 			{
 			case 1:
-					//pizza();
+			    int getNumPizzas, getNumSizePizza;
+			    String type;
+			    Pizza p;
+			    System.out.println("De que tipo de Pizza quieres?");
+			    type=typeReader.nextLine();
+			    System.out.println("De que tamanio la Pizza (10, 16, 20)?");
+			    getNumSizePizza=in.nextInt();
+			    System.out.println("Cuantas Pizzas quieres?");
+			    getNumPizzas=in.nextInt();
+			    p=FactoryBuilderPizza(type, (short) getNumSizePizza);
+			    if(p!=null)
+				bd.addPizza(p, (short) getNumPizzas);
+			    System.out.println("Todo fine");
 			break;
 
 			case 2:
@@ -155,14 +168,15 @@ public class Pizzeria
 			break;
 			case 4:
 
-					int totalsoda;int totalsalad;int totalgeneral=0;
-					ordenes.add(bd.getOrden());
+			    int totalsoda, totalsalad, totalpizza, totalgeneral=0;
+				ordenes.add(bd.getOrden());
 				totalsoda=ordenes.lastElement().costofsodas(20);
-				System.out.print("Costo de las sodas:  " +ordenes.lastElement().costofsodas(20)+"\n");
-					totalsalad=ordenes.lastElement().costofsalads(70);
-				System.out.print("Costo de las ensaladas:  " +ordenes.lastElement().costofsalads(70)+"\n");
-				
-				totalgeneral=totalsoda+totalsalad;
+				System.out.print("Costo de las sodas:  " +totalsoda+"\n");
+				totalsalad=ordenes.lastElement().costofsalads(70);
+				System.out.print("Costo de las ensaladas:  " +totalsalad+"\n");
+				totalpizza=ordenes.lastElement().costofpizzas();
+				System.out.print("Costo de las pizzas:  " +totalpizza+"\n");
+				totalgeneral=totalsoda+totalsalad+totalpizza;
 				System.out.print("Total: " +totalgeneral+"\n");
 			break;
 			
