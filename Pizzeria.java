@@ -1,6 +1,27 @@
 import java.io.*;
 import java.util.*;
 import java.util.Scanner;
+
+class Pizza{
+    
+}
+class QuesoPizza {
+}
+class PeperoniPizza{
+}
+class CarnivoraPizza{
+}
+class Orden{
+}
+class Fw{//Flyweight
+    
+}
+class Iterator{
+    
+}
+class Build{
+}
+
 public class Pizzeria
 {
     
