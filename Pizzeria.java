@@ -3,9 +3,15 @@ import java.util.*;
 import java.util.Scanner;
 
 class Pizza{
-    Fw sizeAndPrice;
+    private Fw sizeAndPrice;
     public Pizza(Fw f){
 	sizeAndPrice=f;
+    }
+    public int getCost(){
+	return sizeAndPrice.cost;
+    }
+    public int getSize(){
+	return sizeAndPrice.size;
     }
 }
 class QuesoPizza extends Pizza{
@@ -58,6 +64,8 @@ class Orden{
 	}
 }
 class Fw{//Flyweight
+    public int size, cost;
+    
     public Fw(){}
 }
 class Iterator{
