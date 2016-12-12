@@ -1,6 +1,81 @@
 import java.io.*;
 import java.util.*;
 import java.util.Scanner;
+
+class Pizza{
+    
+    public Pizza(){
+	    
+    }
+}
+class QuesoPizza extends Pizza{
+    public QuesoPizza(){
+    }
+}
+class PeperoniPizza extends Pizza{
+    public PeperoniPizza(){
+    }
+}
+class CarnivoraPizza extends Pizza{
+    public CarnivoraPizza(){
+    }
+}
+class PortebelloPizza extends Pizza{
+    public PortebelloPizza(){
+    }
+}
+
+class Orden{
+    private int amountOfSodas;
+    private int amountOfSalads;
+    private int costOfSoda;
+    private int costOfSalad;
+    
+    public Orden(){
+	costOfSoda=15;
+	costOfSalad=30;
+    }
+    public void addNewPizza(){
+    }
+    public void setAmountOfSodas(int amount){
+	amountOfSodas=amount;
+    }
+    public void setAmountOfSalads(int amount){
+	amountOfSalads=amount;
+    }
+    
+}
+class Fw{//Flyweight
+    
+}
+class Iterator{
+    
+}
+class Builder{
+    private Orden nuevaOrden;
+    
+    private Builder(){
+	nuevaOrden=new Orden();
+    }
+       
+    public void addPizza(int amount, String type){
+	
+    }
+    
+    public void addSodas(int amount){
+	nuevaOrden.setAmountOfSodas(amount);
+    }
+    
+    public void addSalads(int amount){
+	nuevaOrden.setAmountOfSodas(amount);
+    }
+    
+    public Orden getOrden(){
+	return nuevaOrden;
+    }
+}
+
+
 public class Pizzeria
 {
     
