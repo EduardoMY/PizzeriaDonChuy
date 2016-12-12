@@ -1,17 +1,12 @@
+
 import java.io.*;
 import java.util.*;
 import java.util.Scanner;
 
 class Pizza{
-    private Fw sizeAndPrice;
+    Fw sizeAndPrice;
     public Pizza(Fw f){
 	sizeAndPrice=f;
-    }
-    public int getCost(){
-	return sizeAndPrice.cost;
-    }
-    public int getSize(){
-	return sizeAndPrice.size;
     }
 }
 class QuesoPizza extends Pizza{
@@ -64,8 +59,6 @@ class Orden{
 	}
 }
 class Fw{//Flyweight
-    public int size, cost;
-    
     public Fw(){}
 }
 class Iterator{
@@ -132,14 +125,12 @@ public class Pizzeria
 				getnum=in.nextInt();
 				bd.addSodas(getnum);
 				
-					//soda();
 			break;
 			case 3:
 				int getnumsalad;
 				System.out.println("Cuantas ensaladas quiere?");
 				getnumsalad=in.nextInt();
 				bd.addSalads(getnumsalad);
-					//ensalada();
 			break;
 			case 4:
 
@@ -152,10 +143,17 @@ public class Pizzeria
 				
 				totalgeneral=totalsoda+totalsalad;
 				System.out.print("Total: " +totalgeneral+"\n");
-					//total(costosoda,costoensalada,costopizza);
 			break;
 			
 			case 5://reportes
+				   java.util.Iterator<Orden> it=ordenes.iterator();
+					System.out.println("Obteniendo reportes");
+					int cont=0;
+					while(it.hasNext())
+					{
+						cont+=1;
+						System.out.print(cont+") "+it.next().costofsodas(20)+"\n");
+					   }					
 			break;
 			}
 
@@ -178,6 +176,4 @@ public class Pizzeria
 	return nuevaPizza;
     }
 }
-
-
 
