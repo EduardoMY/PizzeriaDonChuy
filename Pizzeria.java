@@ -33,6 +33,7 @@ class PortebelloPizza extends Pizza{
 class Orden{
     private int amountOfSodas;
     private int amountOfSalads;
+	private int amountOfPizza;
     private int costOfSalad;
     
     public Orden(){
@@ -45,6 +46,9 @@ class Orden{
     public void setAmountOfSalads(int amount){
 	amountOfSalads=amount;
     }
+	public void setAmountOfPizza(int amount){
+	amountOfPizza=amount;
+	   }
 	public int costofsodas(int costOfSoda)
 	{int totals=0;
 		totals=amountOfSodas*costOfSoda;
@@ -57,6 +61,12 @@ class Orden{
 		return totals2;
 
 	}
+	public int costofpizza(int costOfPizza)
+	{
+	int totals3=0;
+		totals3=amountOfPizza*costOfPizza;
+		return totals3;
+	   }
 }
 class Fw{//Flyweight
     public Fw(){}
@@ -82,6 +92,10 @@ class Builder{
     public void addSalads(int amount){
 	nuevaOrden.setAmountOfSalads(amount);
     }
+	public void addPizza(int amount)
+	{
+	nuevaOrden.setAmountOfPizza(amount);
+	}
     
     public Orden getOrden(){
 	return nuevaOrden;
