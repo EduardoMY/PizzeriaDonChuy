@@ -152,6 +152,7 @@ public class Pizzeria
 			     System.out.println("Queso");
 			     System.out.println("Peperoni");
 			     System.out.println("Carnivora");
+			       System.out.println("Ingrese el tipo:\n");
 			    
 			    type=typeReader.nextLine();
 			    System.out.println("De que tamanio la Pizza (10, 16, 20)?");
