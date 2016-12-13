@@ -209,10 +209,14 @@ public class Pizzeria
 					    System.out.println("La orden N. "+cont+" contiene:");
 					    System.out.println("Pizzas: ");
 					    pi=or.getPizzas();
-					    for(int c=0; c<pi.size(); c++)
+					    for(int c=0; c<pi.size(); c++) {
 						System.out.println("La pizza es de tipo: "+ pi.get(c).getClass()
 								   +" .Con una cantidad de "+or.getAmountPizzas(c)
 								   +" Y un precio de "+pi.get(c).getCost());
+						Logger.getInstance().Log("La pizza es de tipo: "+ pi.get(c).getClass()
+								   +" .Con una cantidad de "+or.getAmountPizzas(c)
+								   +" Y un precio de "+pi.get(c).getCost());
+                                            }
 					    System.out.println("=====================================");
 					    System.out.println("Cantidad de Sodas: "+or.getSodas());
 					    System.out.println("Costo por Sodas: "+or.costofsodas(20));
@@ -220,6 +224,14 @@ public class Pizzeria
 					    System.out.println("Cantidad de Ensaladas: "+or.getEnsaladas());
 					    System.out.println("Costo por Ensaladas: "+or.costofsalads(70));
 					    System.out.println("=====================================\n\n");
+
+					    Logger.getInstance().Log("=====================================");
+					    Logger.getInstance().Log("Cantidad de Sodas: "+or.getSodas());
+					    Logger.getInstance().Log("Costo por Sodas: "+or.costofsodas(20));
+					    Logger.getInstance().Log("=====================================");
+					    Logger.getInstance().Log("Cantidad de Ensaladas: "+or.getEnsaladas());
+					    Logger.getInstance().Log("Costo por Ensaladas: "+or.costofsalads(70));
+					    Logger.getInstance().Log("=====================================\n\n");
 					    
 					    cont+=1;
 					    
@@ -228,6 +240,7 @@ public class Pizzeria
 			}
 
 		  }while(option!=6);
+                Logger.getInstance().close();
     }
 	
     public static Pizza FactoryBuilderPizza(String type, short size){
@@ -249,4 +262,25 @@ public class Pizzeria
 	    nuevaPizza=null;
 	return nuevaPizza;
     }
+}
+class Logger  {
+  private static Logger instance = null;
+  PrintWriter pw;
+  public void Log(String s) {
+    pw.println(s);
+  }
+  public void close() {
+    pw.close();
+  }
+  protected Logger() throws IOException{
+    FileWriter fw = new FileWriter("log.txt", true);
+    BufferedWriter bw = new BufferedWriter(fw);
+    pw = new PrintWriter(bw);
+  }
+  public static Logger getInstance() throws IOException{
+    if(instance == null) {
+      instance = new Logger();
+    }
+    return instance;
+  }
 }
