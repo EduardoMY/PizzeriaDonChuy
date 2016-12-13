@@ -39,7 +39,6 @@ class PortebelloPizza extends Pizza{
 class Orden{
     private int amountOfSodas;
     private int amountOfSalads;
-    private int amountOfPizza;
     private int costOfSalad;
     private Vector<Pizza> pizzas;
     private Vector amountOfPizzas;
@@ -77,6 +76,14 @@ class Orden{
 		total+= ((Pizza)pizzas.get(c)).getCost() * (short)amountOfPizzas.get(c);
 	    return total;
 	}
+    public Vector<Pizza> getPizzas(){
+	return pizzas;
+    }
+    public int getEnsaladas(){ return amountOfSalads;}
+    
+    public int getSodas(){ return amountOfSodas;}
+
+    public short getAmountPizzas(int pos){ return (short) amountOfPizzas.get(pos);}
 }
 class Fw{//Flyweight
     public short size, cost;
@@ -125,14 +132,13 @@ public class Pizzeria
 		do
 		{
 			System.out.print("Bienvenidos a pizzeria Don Chuy\n");
-			
 			System.out.print("1) Ordenar una pizza\n");
 			System.out.print("2) Ordenar una soda\n");
 			System.out.print("3) Ordenar una ensalada\n");
-			System.out.print("4) Total del pedido\n");
+			System.out.print("4) Total del pedido (Se tomara la orden al momento de seleccionar)\n");
 			System.out.print("5) Reporte del dia\n");
-			System.out.print("6)Salir\n");
-			System.out.print("Seleccione una opción\n");
+			System.out.print("6) Salir\n");
+			System.out.print("Seleccione una opción: ");			
 			option=in.nextInt();
 		
 			switch(option)
@@ -170,6 +176,7 @@ public class Pizzeria
 
 			    int totalsoda, totalsalad, totalpizza, totalgeneral=0;
 				ordenes.add(bd.getOrden());
+				bd=new Builder();
 				totalsoda=ordenes.lastElement().costofsodas(20);
 				System.out.print("Costo de las sodas:  " +totalsoda+"\n");
 				totalsalad=ordenes.lastElement().costofsalads(70);
@@ -181,13 +188,35 @@ public class Pizzeria
 			break;
 			
 			case 5://reportes
-				   java.util.Iterator<Orden> it=ordenes.iterator();
-					System.out.println("Obteniendo reportes");
-					int cont=0;
-					while(it.hasNext())
+			    if(ordenes.size()==0){
+				System.out.println("No hay ordenes, favor de pasar a realizar una orden primero. ");
+				break;
+			    }
+			    java.util.Iterator<Orden> it=ordenes.iterator();
+			    System.out.println("Obteniendo reportes");
+			    int cont=1;
+			    Vector<Pizza> pi;
+			    Orden or;
+			    while(it.hasNext())
 					{
-						cont+=1;
-						System.out.print(cont+") "+it.next().costofsodas(20)+"\n");
+					    or=it.next();
+					    System.out.println("La orden N. "+cont+" contiene:");
+					    System.out.println("Pizzas: ");
+					    pi=or.getPizzas();
+					    for(int c=0; c<pi.size(); c++)
+						System.out.println("La pizza es de tipo: "+ pi.get(c).getClass()
+								   +" .Con una cantidad de "+or.getAmountPizzas(c)
+								   +" Y un precio de "+pi.get(c).getCost());
+					    System.out.println("=====================================");
+					    System.out.println("Cantidad de Sodas: "+or.getSodas());
+					    System.out.println("Costo por Sodas: "+or.costofsodas(20));
+					    System.out.println("=====================================");
+					    System.out.println("Cantidad de Ensaladas: "+or.getEnsaladas());
+					    System.out.println("Costo por Ensaladas: "+or.costofsalads(70));
+					    System.out.println("=====================================\n\n");
+					    
+					    cont+=1;
+					    
 					   }					
 			break;
 			}
