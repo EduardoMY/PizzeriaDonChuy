@@ -148,6 +148,11 @@ public class Pizzeria
 			    String type;
 			    Pizza p;
 			    System.out.println("De que tipo de Pizza quieres?");
+			     System.out.println("Portobello");
+			     System.out.println("Queso");
+			     System.out.println("Peperoni");
+			     System.out.println("Carnivora");
+			    
 			    type=typeReader.nextLine();
 			    System.out.println("De que tamanio la Pizza (10, 16, 20)?");
 			    getNumSizePizza=in.nextInt();
@@ -244,4 +249,3 @@ public class Pizzeria
 	return nuevaPizza;
     }
 }
-
